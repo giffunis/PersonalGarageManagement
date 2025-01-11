@@ -1,4 +1,4 @@
-package com.giffuniscode.pgm.pgm;
+package com.giffuniscode.pgm.ui;
 
 import android.os.Bundle;
 
