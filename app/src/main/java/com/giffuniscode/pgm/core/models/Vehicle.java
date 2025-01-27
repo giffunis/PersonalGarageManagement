@@ -11,6 +11,15 @@ public class Vehicle {
     private String FuelCapacity;
     private List<Itv> itvs;
     private List<InsuranceCompany> insurances;
+    private String brandLogoUrl;
+
+    public String getBrandLogoUrl() {
+        return brandLogoUrl;
+    }
+
+    public void setBrandLogoUrl(String brandLogoUrl) {
+        this.brandLogoUrl = brandLogoUrl;
+    }
 
     public String getModel() {
         return model;
