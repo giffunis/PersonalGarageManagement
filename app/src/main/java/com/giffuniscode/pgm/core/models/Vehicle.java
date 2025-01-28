@@ -13,6 +13,11 @@ public class Vehicle {
     private List<InsuranceCompany> insurances;
     private String brandLogoUrl;
 
+    public Vehicle(String licensePlate, String brandLogoUrl) {
+        this.licensePlate = licensePlate;
+        this.brandLogoUrl = brandLogoUrl;
+    }
+
     public String getBrandLogoUrl() {
         return brandLogoUrl;
     }
