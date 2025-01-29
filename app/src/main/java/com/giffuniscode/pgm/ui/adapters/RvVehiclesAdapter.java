@@ -50,10 +50,10 @@ public class RvVehiclesAdapter extends RecyclerView.Adapter<RvVehiclesAdapter.Vi
         return vehicles.size();
     }
 
-//    public void updateRecycleView(List<Vehicle> newVehicles) {
-//        this.vehicles = newVehicles;
-//        notifyDataSetChanged();
-//    }
+    public void updateRecycleView(List<Vehicle> newVehicles) {
+        this.vehicles = newVehicles;
+        notifyDataSetChanged();
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView licencePlate;

@@ -32,6 +32,13 @@ public class VehiclesActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        vehicles = this.vehiclesRepository.findAll();
+        adapter.updateRecycleView(vehiclesGenerator());
+    }
+
     private List<Vehicle> vehiclesGenerator(){
         List<Vehicle> vehicles = new ArrayList<>();
         vehicles.add(new Vehicle("0123 BCD", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/kia.png"));
