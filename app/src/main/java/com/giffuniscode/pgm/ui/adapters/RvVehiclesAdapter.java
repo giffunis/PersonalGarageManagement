@@ -21,17 +21,22 @@ public class RvVehiclesAdapter extends RecyclerView.Adapter<RvVehiclesAdapter.Vi
 
     private final LayoutInflater inflater;
     private List<Vehicle> vehicles;
+    protected View.OnClickListener onClickListener;
 
     public RvVehiclesAdapter(Context context, List<Vehicle> vehicles) {
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.vehicles = vehicles;
     }
 
+    public void setOnItemClickListener(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
     @NonNull
     @Override
     public RvVehiclesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = inflater.inflate(R.layout.simple_vehicle_item, parent, false);
-//        v.setOnClickListener(onClickListener);
+        v.setOnClickListener(onClickListener);
         return new ViewHolder(v);
     }
 

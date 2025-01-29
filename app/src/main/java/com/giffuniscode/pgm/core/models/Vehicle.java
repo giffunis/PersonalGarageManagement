@@ -1,8 +1,10 @@
 package com.giffuniscode.pgm.core.models;
 
+import com.giffuniscode.db.sqlite.BaseEntity;
+
 import java.util.List;
 
-public class Vehicle {
+public class Vehicle extends BaseEntity {
     private String model;
     private String manufacturer;
     private String originalRegistrationDate;
