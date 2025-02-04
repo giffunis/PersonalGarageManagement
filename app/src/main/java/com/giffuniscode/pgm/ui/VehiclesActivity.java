@@ -1,12 +1,11 @@
 package com.giffuniscode.pgm.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,7 +27,11 @@ public class VehiclesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.vehicles);
+        setContentView(R.layout.activity_vehicles);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+//        getSupportActionBar().set;
+
         layoutManager = new GridLayoutManager(this, 2);
         vehicles = vehiclesGenerator(); // TODO: Llamar al servicio que devuelve los vehículos del usuario
 
