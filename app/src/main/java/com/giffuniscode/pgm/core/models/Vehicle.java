@@ -1,8 +1,10 @@
 package com.giffuniscode.pgm.core.models;
 
+import com.giffuniscode.db.sqlite.BaseEntity;
+
 import java.util.List;
 
-public class Vehicle {
+public class Vehicle extends BaseEntity {
     private String model;
     private String manufacturer;
     private String originalRegistrationDate;
@@ -11,6 +13,20 @@ public class Vehicle {
     private String FuelCapacity;
     private List<Itv> itvs;
     private List<InsuranceCompany> insurances;
+    private String brandLogoUrl;
+
+    public Vehicle(String licensePlate, String brandLogoUrl) {
+        this.licensePlate = licensePlate;
+        this.brandLogoUrl = brandLogoUrl;
+    }
+
+    public String getBrandLogoUrl() {
+        return brandLogoUrl;
+    }
+
+    public void setBrandLogoUrl(String brandLogoUrl) {
+        this.brandLogoUrl = brandLogoUrl;
+    }
 
     public String getModel() {
         return model;

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Personal Garage Management</string>
+    <string name="simple_vehicle_item_image_description">Logo del vehículo</string>
+    <string name="license_plate_example">9999 BCD</string>
 </resources>
