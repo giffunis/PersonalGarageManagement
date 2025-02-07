@@ -16,7 +16,7 @@ import com.giffuniscode.pgm.ui.adapters.RvVehiclesAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VehiclesActivity extends AppCompatActivity {
+public class GarageActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -27,7 +27,7 @@ public class VehiclesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vehicles);
+        setContentView(R.layout.activity_garage);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 //        getSupportActionBar().set;
