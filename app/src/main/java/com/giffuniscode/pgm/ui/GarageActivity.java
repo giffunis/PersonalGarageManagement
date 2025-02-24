@@ -1,9 +1,12 @@
 package com.giffuniscode.pgm.ui;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -41,6 +44,25 @@ public class GarageActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycleViewVehicles);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
+    }
+
+    @Override public boolean onCreateOptionsMenu(Menu menu){
+            getMenuInflater().inflate(R.menu.menu_main, menu);
+            return true; // Para indicar que está visible.
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings){
+            //TODO:: Llamar a la activity que almacena la configuración de la app
+            return true;
+        }
+        if (id == R.id.menu_buscar){
+            // TODO: Llamar a la función de buscar en la lista
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
