@@ -11,8 +11,6 @@ public class Vehicle extends BaseEntity {
     private String vin;
     private String licensePlate;
     private String FuelCapacity;
-    private List<Itv> itvs;
-    private List<InsuranceCompany> insurances;
     private String brandLogoUrl;
 
     public Vehicle(String licensePlate, String brandLogoUrl) {
@@ -76,19 +74,4 @@ public class Vehicle extends BaseEntity {
         FuelCapacity = fuelCapacity;
     }
 
-    public List<Itv> getItvs() {
-        return itvs;
-    }
-
-    public void setItvs(List<Itv> itvs) {
-        this.itvs = itvs;
-    }
-
-    public List<InsuranceCompany> getInsurances() {
-        return insurances;
-    }
-
-    public void setInsurances(List<InsuranceCompany> insurances) {
-        this.insurances = insurances;
-    }
 }
