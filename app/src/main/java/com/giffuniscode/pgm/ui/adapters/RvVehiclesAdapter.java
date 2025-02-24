@@ -35,7 +35,7 @@ public class RvVehiclesAdapter extends RecyclerView.Adapter<RvVehiclesAdapter.Vi
     @NonNull
     @Override
     public RvVehiclesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = inflater.inflate(R.layout.simple_vehicle_item, parent, false);
+        View v = inflater.inflate(R.layout.simple_garage_item, parent, false);
         v.setOnClickListener(onClickListener);
         return new ViewHolder(v);
     }
