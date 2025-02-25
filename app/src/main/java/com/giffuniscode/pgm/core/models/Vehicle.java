@@ -1,6 +1,7 @@
 package com.giffuniscode.pgm.core.models;
 
 import com.giffuniscode.db.sqlite.BaseEntity;
+import com.google.gson.Gson;
 
 import java.util.Date;
 
@@ -19,6 +20,14 @@ public class Vehicle {
     public Vehicle(String licensePlate, String manufacturerLogoUrl) {
         this.licensePlate = licensePlate;
         this.manufacturerLogoUrl = manufacturerLogoUrl;
+    }
+
+    public static String toJson(Vehicle vehicle){
+        return new Gson().toJson(vehicle);
+    }
+
+    public static Vehicle fromJson(String json){
+        return new Gson().fromJson(json, Vehicle.class);
     }
 
     public String getLicensePlate() {

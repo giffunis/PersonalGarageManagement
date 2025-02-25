@@ -1,11 +1,14 @@
 package com.giffuniscode.pgm.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -17,6 +20,7 @@ import com.giffuniscode.giffuniscode.pgm.R;
 import com.giffuniscode.pgm.core.models.Vehicle;
 import com.giffuniscode.pgm.core.services.PgmService;
 import com.giffuniscode.pgm.ui.adapters.RvVehiclesAdapter;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +31,16 @@ public class GarageActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private RvVehiclesAdapter adapter;
     private List<Vehicle> vehicles = new ArrayList<>();
+
+    private final ActivityResultLauncher<Intent> activityResultLaunch = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == VehicleActivity.ACTIVITY_RESULT_CODE) {
+                    assert result.getData() != null;
+                    String message = result.getData().getStringExtra(VehicleActivity.MESSAGE);
+                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +93,9 @@ public class GarageActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             int pos = recyclerView.getChildAdapterPosition(v);
-            Toast.makeText(getApplicationContext(), String.format("Seleccionada la pos %s", pos), Toast.LENGTH_SHORT).show();
-
-//            Intent intent = new Intent(v.getContext(), VehicleActivity.class);
-//            intent.putExtra(Vehicle.ID, vehicles.get(pos).getId());
-//            activityResultLaunch.launch(intent);
+            Intent intent = new Intent(v.getContext(), VehicleActivity.class);
+            intent.putExtra(VehicleActivity.VEHICLE, Vehicle.toJson(vehicles.get(pos)));
+            activityResultLaunch.launch(intent);
         }
     };
 
