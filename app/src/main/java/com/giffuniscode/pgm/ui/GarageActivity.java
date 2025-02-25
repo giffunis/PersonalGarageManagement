@@ -36,17 +36,17 @@ public class GarageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_garage);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        getSupportActionBar().set;
 
         layoutManager = new GridLayoutManager(this, 2);
-        PgmService.GetVehicles(this, vehicleListRequestSuccessListener(), requestErrorListener()); //vehicles = vehiclesGenerator(); // TODO: Llamar al servicio que devuelve los vehículos del usuario
-
         adapter = new RvVehiclesAdapter(this, vehicles);
         adapter.setOnItemClickListener(onItemClickListener);
 
         recyclerView = findViewById(R.id.recycleViewVehicles);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
+
+        // Llamamos al servicio que nos devuelve los vehículos almacenados en el servidor.
+        GetVehiclesFromServer();
     }
 
     @Override public boolean onCreateOptionsMenu(Menu menu){
@@ -63,8 +63,6 @@ public class GarageActivity extends AppCompatActivity {
         }
         if (id == R.id.menu_buscar){
             // TODO: Llamar a la función de buscar en la lista
-            PgmService.GetVehicles(this, vehicleListRequestSuccessListener(), requestErrorListener());
-
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -73,9 +71,7 @@ public class GarageActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        vehicles = this.vehiclesRepository.findAll();
-//        vehicles = vehiclesGenerator(); //TODO: Llamar al servicio que devuelve los vehículos del usuario
-        adapter.updateRecycleView(vehicles);
+        GetVehiclesFromServer(); // Volvemos a actualizar la lista de vehículos desde el servidor
     }
 
     private final View.OnClickListener onItemClickListener = new View.OnClickListener() {
@@ -92,23 +88,12 @@ public class GarageActivity extends AppCompatActivity {
     };
 
     /**
-     * Función temporal para generar vehículos
+     * Obtiene los vehículos del servidor
      * @return Listado ficticio de vehículos
      */
-//    private List<Vehicle> vehiclesGenerator(){
-//        List<Vehicle> vehicles = new ArrayList<>();
-//        vehicles.add(new Vehicle("0123 BCD", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/kia.png"));
-//        vehicles.add(new Vehicle("9999 ZZZ", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/mitsubishi.png"));
-//        vehicles.add(new Vehicle("0000 KKK", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/nissan.png"));
-//        vehicles.add(new Vehicle("2222 BCD", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/opel.png"));
-//        vehicles.add(new Vehicle("3333 ZZZ", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/renault.png"));
-//        vehicles.add(new Vehicle("4444 KKK", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/peugeot.png"));
-//        vehicles.add(new Vehicle("5555 BCD", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/hyundai.png"));
-//        vehicles.add(new Vehicle("6666 ZZZ", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/citroen.png"));
-//        vehicles.add(new Vehicle("7777 KKK", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/toyota.png"));
-//
-//        return vehicles;
-//    }
+    private void GetVehiclesFromServer(){
+        PgmService.GetVehicles(this, vehicleListRequestSuccessListener(), errorListener());
+    }
 
     private com.android.volley.Response.Listener<Response> vehicleListRequestSuccessListener() {
         return new com.android.volley.Response.Listener<Response>() {
@@ -125,7 +110,7 @@ public class GarageActivity extends AppCompatActivity {
         };
     }
 
-    private com.android.volley.Response.ErrorListener requestErrorListener() {
+    private com.android.volley.Response.ErrorListener errorListener() {
         return new com.android.volley.Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
