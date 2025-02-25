@@ -3,7 +3,6 @@ package com.giffuniscode.pgm.core.models;
 import com.giffuniscode.db.sqlite.BaseEntity;
 
 import java.util.Date;
-import java.util.List;
 
 public class Vehicle {
 

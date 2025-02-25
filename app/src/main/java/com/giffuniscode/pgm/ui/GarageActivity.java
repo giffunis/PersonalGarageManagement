@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.VolleyError;
 import com.giffuniscode.giffuniscode.pgm.R;
 import com.giffuniscode.pgm.core.models.Vehicle;
-import com.giffuniscode.pgm.core.models.Response;
 import com.giffuniscode.pgm.core.services.PgmService;
 import com.giffuniscode.pgm.ui.adapters.RvVehiclesAdapter;
 
@@ -27,7 +26,6 @@ public class GarageActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RvVehiclesAdapter adapter;
-
     private List<Vehicle> vehicles = new ArrayList<>();
 
     @Override
@@ -71,7 +69,9 @@ public class GarageActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        GetVehiclesFromServer(); // Volvemos a actualizar la lista de vehículos desde el servidor
+
+        // Volvemos a actualizar la lista de vehículos desde el servidor
+        GetVehiclesFromServer();
     }
 
     private final View.OnClickListener onItemClickListener = new View.OnClickListener() {
@@ -89,16 +89,15 @@ public class GarageActivity extends AppCompatActivity {
 
     /**
      * Obtiene los vehículos del servidor
-     * @return Listado ficticio de vehículos
-     */
+     **/
     private void GetVehiclesFromServer(){
         PgmService.GetVehicles(this, vehicleListRequestSuccessListener(), errorListener());
     }
 
-    private com.android.volley.Response.Listener<Response> vehicleListRequestSuccessListener() {
-        return new com.android.volley.Response.Listener<Response>() {
+    private com.android.volley.Response.Listener<PgmService.PgmResponse> vehicleListRequestSuccessListener() {
+        return new com.android.volley.Response.Listener<PgmService.PgmResponse>() {
             @Override
-            public void onResponse(Response response) {
+            public void onResponse(PgmService.PgmResponse response) {
                 try {
                     vehicles = new ArrayList<>();
                     vehicles.addAll(response.value);
