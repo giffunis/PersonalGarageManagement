@@ -2,60 +2,24 @@ package com.giffuniscode.pgm.core.models;
 
 import com.giffuniscode.db.sqlite.BaseEntity;
 
+import java.util.Date;
 import java.util.List;
 
-public class Vehicle extends BaseEntity {
-    private String model;
-    private String manufacturer;
-    private String originalRegistrationDate;
-    private String vin;
+public class Vehicle {
+
     private String licensePlate;
-    private String FuelCapacity;
-    private String brandLogoUrl;
+    private String manufacturer;
+    private String manufacturerLogoUrl;
+    private String model;
+    private Date firstRegistration;
+    private String photoUrl;
 
-    public Vehicle(String licensePlate, String brandLogoUrl) {
+    public Vehicle() {
+    }
+
+    public Vehicle(String licensePlate, String manufacturerLogoUrl) {
         this.licensePlate = licensePlate;
-        this.brandLogoUrl = brandLogoUrl;
-    }
-
-    public String getBrandLogoUrl() {
-        return brandLogoUrl;
-    }
-
-    public void setBrandLogoUrl(String brandLogoUrl) {
-        this.brandLogoUrl = brandLogoUrl;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public String getManufacturer() {
-        return manufacturer;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
-    public String getOriginalRegistrationDate() {
-        return originalRegistrationDate;
-    }
-
-    public void setOriginalRegistrationDate(String originalRegistrationDate) {
-        this.originalRegistrationDate = originalRegistrationDate;
-    }
-
-    public String getVin() {
-        return vin;
-    }
-
-    public void setVin(String vin) {
-        this.vin = vin;
+        this.manufacturerLogoUrl = manufacturerLogoUrl;
     }
 
     public String getLicensePlate() {
@@ -66,12 +30,43 @@ public class Vehicle extends BaseEntity {
         this.licensePlate = licensePlate;
     }
 
-    public String getFuelCapacity() {
-        return FuelCapacity;
+    public String getManufacturer() {
+        return manufacturer;
     }
 
-    public void setFuelCapacity(String fuelCapacity) {
-        FuelCapacity = fuelCapacity;
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
+    public String getManufacturerLogo() {
+        return manufacturerLogoUrl;
+    }
+
+    public void setManufacturerLogo(String manufacturerLogoUrl) {
+        this.manufacturerLogoUrl = manufacturerLogoUrl;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public Date getFirstRegistration() {
+        return firstRegistration;
+    }
+
+    public void setFirstRegistration(Date firstRegistration) {
+        this.firstRegistration = firstRegistration;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
 }

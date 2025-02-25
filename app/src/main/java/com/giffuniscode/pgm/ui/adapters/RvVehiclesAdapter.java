@@ -45,7 +45,7 @@ public class RvVehiclesAdapter extends RecyclerView.Adapter<RvVehiclesAdapter.Vi
         holder.licencePlate.setText(vehicles.get(position).getLicensePlate());
         VolleyClient.getInstance(this.inflater.getContext())
                 .getImageLoader().get(
-                        vehicles.get(position).getBrandLogoUrl()
+                        vehicles.get(position).getManufacturerLogo()
                         , ImageLoader.getImageListener(holder.brandLogo, 0, 0)
                 );
     }

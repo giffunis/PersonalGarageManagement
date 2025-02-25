@@ -12,8 +12,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.VolleyError;
 import com.giffuniscode.giffuniscode.pgm.R;
 import com.giffuniscode.pgm.core.models.Vehicle;
+import com.giffuniscode.pgm.core.models.Response;
+import com.giffuniscode.pgm.core.services.PgmService;
 import com.giffuniscode.pgm.ui.adapters.RvVehiclesAdapter;
 
 import java.util.ArrayList;
@@ -25,7 +28,7 @@ public class GarageActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private RvVehiclesAdapter adapter;
 
-    private List<Vehicle> vehicles;
+    private List<Vehicle> vehicles = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,7 @@ public class GarageActivity extends AppCompatActivity {
 //        getSupportActionBar().set;
 
         layoutManager = new GridLayoutManager(this, 2);
-        vehicles = vehiclesGenerator(); // TODO: Llamar al servicio que devuelve los vehículos del usuario
+        PgmService.GetVehicles(this, vehicleListRequestSuccessListener(), requestErrorListener()); //vehicles = vehiclesGenerator(); // TODO: Llamar al servicio que devuelve los vehículos del usuario
 
         adapter = new RvVehiclesAdapter(this, vehicles);
         adapter.setOnItemClickListener(onItemClickListener);
@@ -60,6 +63,8 @@ public class GarageActivity extends AppCompatActivity {
         }
         if (id == R.id.menu_buscar){
             // TODO: Llamar a la función de buscar en la lista
+            PgmService.GetVehicles(this, vehicleListRequestSuccessListener(), requestErrorListener());
+
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -69,7 +74,7 @@ public class GarageActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 //        vehicles = this.vehiclesRepository.findAll();
-        vehicles = vehiclesGenerator(); //TODO: Llamar al servicio que devuelve los vehículos del usuario
+//        vehicles = vehiclesGenerator(); //TODO: Llamar al servicio que devuelve los vehículos del usuario
         adapter.updateRecycleView(vehicles);
     }
 
@@ -90,18 +95,42 @@ public class GarageActivity extends AppCompatActivity {
      * Función temporal para generar vehículos
      * @return Listado ficticio de vehículos
      */
-    private List<Vehicle> vehiclesGenerator(){
-        List<Vehicle> vehicles = new ArrayList<>();
-        vehicles.add(new Vehicle("0123 BCD", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/kia.png"));
-        vehicles.add(new Vehicle("9999 ZZZ", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/mitsubishi.png"));
-        vehicles.add(new Vehicle("0000 KKK", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/nissan.png"));
-        vehicles.add(new Vehicle("2222 BCD", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/opel.png"));
-        vehicles.add(new Vehicle("3333 ZZZ", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/renault.png"));
-        vehicles.add(new Vehicle("4444 KKK", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/peugeot.png"));
-        vehicles.add(new Vehicle("5555 BCD", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/hyundai.png"));
-        vehicles.add(new Vehicle("6666 ZZZ", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/citroen.png"));
-        vehicles.add(new Vehicle("7777 KKK", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/toyota.png"));
+//    private List<Vehicle> vehiclesGenerator(){
+//        List<Vehicle> vehicles = new ArrayList<>();
+//        vehicles.add(new Vehicle("0123 BCD", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/kia.png"));
+//        vehicles.add(new Vehicle("9999 ZZZ", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/mitsubishi.png"));
+//        vehicles.add(new Vehicle("0000 KKK", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/nissan.png"));
+//        vehicles.add(new Vehicle("2222 BCD", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/opel.png"));
+//        vehicles.add(new Vehicle("3333 ZZZ", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/renault.png"));
+//        vehicles.add(new Vehicle("4444 KKK", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/peugeot.png"));
+//        vehicles.add(new Vehicle("5555 BCD", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/hyundai.png"));
+//        vehicles.add(new Vehicle("6666 ZZZ", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/citroen.png"));
+//        vehicles.add(new Vehicle("7777 KKK", "https://raw.githubusercontent.com/giffunis/car-logos-dataset/master/logos/optimized/toyota.png"));
+//
+//        return vehicles;
+//    }
 
-        return vehicles;
+    private com.android.volley.Response.Listener<Response> vehicleListRequestSuccessListener() {
+        return new com.android.volley.Response.Listener<Response>() {
+            @Override
+            public void onResponse(Response response) {
+                try {
+                    vehicles = new ArrayList<>();
+                    vehicles.addAll(response.value);
+                    adapter.updateRecycleView(vehicles);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+    }
+
+    private com.android.volley.Response.ErrorListener requestErrorListener() {
+        return new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        };
     }
 }
