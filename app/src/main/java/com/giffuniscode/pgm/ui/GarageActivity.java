@@ -61,7 +61,7 @@ public class GarageActivity extends AppCompatActivity {
 
         pgmService = new PgmService(this);
         // Llamamos al servicio que nos devuelve los vehículos almacenados en el servidor.
-        GetVehiclesFromServer();
+//        GetVehiclesFromServer();
     }
 
     @Override public boolean onCreateOptionsMenu(Menu menu){
@@ -76,8 +76,8 @@ public class GarageActivity extends AppCompatActivity {
             //TODO:: Llamar a la activity que almacena la configuración de la app
             return true;
         }
-        if (id == R.id.menu_buscar){
-            // TODO: Llamar a la función de buscar en la lista
+        if (id == R.id.menu_refresh){
+            GetVehiclesFromServer();
             return true;
         }
         return super.onOptionsItemSelected(item);

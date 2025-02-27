@@ -1,7 +1,6 @@
 package com.giffuniscode.pgm.ui;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
 
 import com.android.volley.VolleyError;
 import com.android.volley.Response;
@@ -20,7 +18,6 @@ import com.giffuniscode.pgm.core.services.PgmService;
 import com.giffuniscode.pgm.ui.dialogs.DatePickerFragment;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 

@@ -5,13 +5,13 @@
     tools:context=".GarageActivity">
     <item android:id="@+id/action_settings"
         android:title="Configuración"
-        android:icon="@android:drawable/ic_menu_preferences"
+        android:icon="@drawable/baseline_settings_24"
         android:orderInCategory="5"
         app:showAsAction="never"
         />
-    <item android:id="@+id/menu_buscar"
+    <item android:id="@+id/menu_refresh"
         android:title="Buscar"
-        android:icon="@android:drawable/ic_menu_search"
+        android:icon="@drawable/baseline_refresh_24"
         android:orderInCategory="10"
         app:showAsAction="ifRoom"/>
 

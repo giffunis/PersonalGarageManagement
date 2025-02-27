@@ -1,12 +1,12 @@
 package com.giffuniscode.pgm.core.models;
 
-import com.giffuniscode.db.sqlite.BaseEntity;
 import com.google.gson.Gson;
 
 import java.util.Date;
 
 public class Vehicle {
 
+    private long id;
     private String licensePlate;
     private String manufacturer;
     private String manufacturerLogoUrl;
@@ -26,6 +26,9 @@ public class Vehicle {
         return new Gson().fromJson(json, Vehicle.class);
     }
 
+    public Long getId() { return id; }
+//    public Long setId(long id) { this.Id = id; }
+
     public String getLicensePlate() {
         return licensePlate;
     }
@@ -44,10 +47,6 @@ public class Vehicle {
 
     public String getManufacturerLogo() {
         return manufacturerLogoUrl;
-    }
-
-    public void setManufacturerLogo(String manufacturerLogoUrl) {
-        this.manufacturerLogoUrl = manufacturerLogoUrl;
     }
 
     public String getModel() {
