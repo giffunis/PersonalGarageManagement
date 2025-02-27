@@ -17,11 +17,6 @@ public class Vehicle {
     public Vehicle() {
     }
 
-    public Vehicle(String licensePlate, String manufacturerLogoUrl) {
-        this.licensePlate = licensePlate;
-        this.manufacturerLogoUrl = manufacturerLogoUrl;
-    }
-
     public static String toJson(Vehicle vehicle){
         return new Gson().toJson(vehicle);
     }

@@ -5,22 +5,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.android.volley.VolleyError;
+import com.android.volley.Response;
 import com.giffuniscode.giffuniscode.pgm.R;
 import com.giffuniscode.pgm.core.models.Vehicle;
+import com.giffuniscode.pgm.core.services.PgmService;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class VehicleActivity extends AppCompatActivity {
 
     public static final String VEHICLE = "vehicle";
     public static final String MESSAGE = "msg"; // Key for the return message
     public static final int ACTIVITY_RESULT_CODE = 1001; // Key to identify this activity on the call activity
-
+    private PgmService pgmService;
     private Vehicle vehicle;
 
     @Override
@@ -29,6 +32,8 @@ public class VehicleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vehicle);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        pgmService = new PgmService(this);
 
         Intent intent = getIntent();
         vehicle = intent.getExtras() != null ? Vehicle.fromJson(intent.getStringExtra(VEHICLE)) : new Vehicle();
@@ -47,18 +52,26 @@ public class VehicleActivity extends AppCompatActivity {
         model.setText(vehicle.getModel());
 
         EditText firstRegistration = findViewById(R.id.ac_vehicle_date);
-        firstRegistration.setText(vehicle.getFirstRegistration().toString());
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        String date = dateFormat.format(vehicle.getFirstRegistration());
+        firstRegistration.setText(date);
     }
 
     public void saveVehicle(View view) {
-//        EditText username = findViewById(R.id.ac_staff_username);
-//        staff.setUsername(username.getText().toString());
-//
-//        EditText password = findViewById(R.id.ac_staff_password);
-//        staff.setPassword(password.getText().toString());
-//
-//        EditText telephone = findViewById(R.id.ac_staff_telephone);
-//        staff.setPhoneNumber(telephone.getText().toString());
+
+
+        EditText licensePlate = findViewById(R.id.ac_vehicle_licensePlate);
+        vehicle.setLicensePlate(licensePlate.getText().toString());
+
+        EditText manufacturer = findViewById(R.id.ac_vehicle_manufacturer);
+        vehicle.setManufacturer(manufacturer.getText().toString());
+
+        EditText model = findViewById(R.id.ac_vehicle_model);
+        vehicle.setModel(model.getText().toString());
+
+        pgmService.Update(vehicle, successListener(), errorListener());
+//        EditText firstRegistration = findViewById(R.id.ac_vehicle_date);
+//        vehicle.setFirstRegistration(firstRegistration.getText().toString());
 //
 //        long rows = staff.getId() != 0 ? staffRepository.update(staff) : staffRepository.add(staff);
 //
@@ -75,6 +88,8 @@ public class VehicleActivity extends AppCompatActivity {
     }
 
     public void deleteVehicle(View view){
+
+        pgmService.DeleteVehicle(vehicle, successListener(), errorListener());
 //        Intent intent = new Intent();
 //
 //        if(staffRepository.delete(staff) != 0){
@@ -86,4 +101,27 @@ public class VehicleActivity extends AppCompatActivity {
 //        returnToParentActivity(intent);
     }
 
+    private Response.Listener<PgmService.PgmResponse> successListener() {
+        return new Response.Listener<PgmService.PgmResponse>() {
+            @Override
+            public void onResponse(PgmService.PgmResponse response) {
+                try {
+//                    vehicles = new ArrayList<>();
+//                    vehicles.addAll(response.value);
+//                    adapter.updateRecycleView(vehicles);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+    }
+
+    private Response.ErrorListener errorListener() {
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        };
+    }
 }

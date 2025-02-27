@@ -20,7 +20,7 @@ import com.giffuniscode.giffuniscode.pgm.R;
 import com.giffuniscode.pgm.core.models.Vehicle;
 import com.giffuniscode.pgm.core.services.PgmService;
 import com.giffuniscode.pgm.ui.adapters.RvVehiclesAdapter;
-import com.google.gson.Gson;
+import com.android.volley.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +31,7 @@ public class GarageActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private RvVehiclesAdapter adapter;
     private List<Vehicle> vehicles = new ArrayList<>();
+    private PgmService pgmService;
 
     private final ActivityResultLauncher<Intent> activityResultLaunch = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -58,6 +59,7 @@ public class GarageActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
 
+        pgmService = new PgmService(this);
         // Llamamos al servicio que nos devuelve los vehículos almacenados en el servidor.
         GetVehiclesFromServer();
     }
@@ -104,11 +106,11 @@ public class GarageActivity extends AppCompatActivity {
      * Obtiene los vehículos del servidor
      **/
     private void GetVehiclesFromServer(){
-        PgmService.GetVehicles(this, vehicleListRequestSuccessListener(), errorListener());
+        pgmService.GetVehicles(vehicleListRequestSuccessListener(), errorListener());
     }
 
-    private com.android.volley.Response.Listener<PgmService.PgmResponse> vehicleListRequestSuccessListener() {
-        return new com.android.volley.Response.Listener<PgmService.PgmResponse>() {
+    private Response.Listener<PgmService.PgmResponse> vehicleListRequestSuccessListener() {
+        return new Response.Listener<PgmService.PgmResponse>() {
             @Override
             public void onResponse(PgmService.PgmResponse response) {
                 try {
@@ -122,8 +124,8 @@ public class GarageActivity extends AppCompatActivity {
         };
     }
 
-    private com.android.volley.Response.ErrorListener errorListener() {
-        return new com.android.volley.Response.ErrorListener() {
+    private Response.ErrorListener errorListener() {
+        return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
