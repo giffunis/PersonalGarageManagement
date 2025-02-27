@@ -1,22 +1,28 @@
 package com.giffuniscode.pgm.ui;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
 
 import com.android.volley.VolleyError;
 import com.android.volley.Response;
 import com.giffuniscode.giffuniscode.pgm.R;
 import com.giffuniscode.pgm.core.models.Vehicle;
 import com.giffuniscode.pgm.core.services.PgmService;
+import com.giffuniscode.pgm.ui.dialogs.DatePickerFragment;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class VehicleActivity extends AppCompatActivity {
 
@@ -52,8 +58,7 @@ public class VehicleActivity extends AppCompatActivity {
         model.setText(vehicle.getModel());
 
         EditText firstRegistration = findViewById(R.id.ac_vehicle_date);
-        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        String date = dateFormat.format(vehicle.getFirstRegistration());
+        String date = DateFormat.getDateInstance().format(vehicle.getFirstRegistration());
         firstRegistration.setText(date);
     }
 
@@ -123,5 +128,30 @@ public class VehicleActivity extends AppCompatActivity {
                 error.printStackTrace();
             }
         };
+    }
+
+    public void onClickFirstRegistration(View view) {
+        DatePickerFragment datePickerFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(vehicle.getFirstRegistration().getTime());
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONDAY, month);
+                calendar.set(Calendar.DAY_OF_MONTH, day);
+                String date = DateFormat.getDateInstance().format(new Date(calendar.getTimeInMillis()));
+
+                EditText firstRegistration = findViewById(R.id.ac_vehicle_date);
+                firstRegistration.setText(date);
+            }
+        });
+
+        // Le pasamos la fecha precargada del vehículo
+        Bundle args = new Bundle();
+        args.putLong(DatePickerFragment.INITIAL_DATE, vehicle.getFirstRegistration().getTime());
+        datePickerFragment.setArguments(args);
+
+        // Mostramos el fragment
+        datePickerFragment.show(this.getSupportFragmentManager(), "datePicker");
     }
 }
