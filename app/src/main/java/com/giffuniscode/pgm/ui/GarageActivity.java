@@ -48,6 +48,7 @@ public class GarageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_garage);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         layoutManager = new GridLayoutManager(this, 2);
         adapter = new RvVehiclesAdapter(this, vehicles);

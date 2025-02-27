@@ -11,5 +11,6 @@
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
+    app:navigationIcon="?attr/homeAsUpIndicator"
     />
 
