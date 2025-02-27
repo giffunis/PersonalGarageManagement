@@ -15,6 +15,7 @@ public class Vehicle {
     private String photoUrl;
 
     public Vehicle() {
+        firstRegistration = new Date(System.currentTimeMillis());
     }
 
     public static String toJson(Vehicle vehicle){
