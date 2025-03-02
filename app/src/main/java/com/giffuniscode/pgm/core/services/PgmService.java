@@ -12,7 +12,8 @@ import java.util.List;
 public class PgmService {
 
 //    private static final String URL_BASE = "http://172.30.140.234:5192/";
-    private static final String URL_BASE = "http://192.168.1.85:5192/";
+//    private static final String URL_BASE = "http://192.168.1.85:5192/";
+    private static final String URL_BASE = "http://192.168.0.102:5192/";
     private static final String VEHICLE_CONTROLLER = "vehicles/";
     private Context ctx;
 

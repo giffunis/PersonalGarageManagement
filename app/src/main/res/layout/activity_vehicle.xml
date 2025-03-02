@@ -13,21 +13,20 @@
         android:id="@+id/ac_vehicle_licensePlate"
         android:layout_width="228dp"
         android:layout_height="65dp"
+        android:layout_marginBottom="20dp"
         android:ems="10"
         android:hint="9999ZZZ"
         android:inputType="text"
         app:layout_constraintBottom_toTopOf="@+id/ac_vehicle_manufacturer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.551" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/ac_vehicle_manufacturer"
         android:layout_width="228dp"
         android:layout_height="65dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="24dp"
         android:ems="10"
         android:hint="Marca"
         android:inputType="text"
@@ -40,7 +39,7 @@
         android:id="@+id/ac_vehicle_model"
         android:layout_width="228dp"
         android:layout_height="65dp"
-        android:layout_marginBottom="276dp"
+        android:layout_marginBottom="264dp"
         android:ems="10"
         android:hint="Modelo"
         android:inputType="text"
@@ -81,14 +80,28 @@
         android:id="@+id/ac_vehicle_btnDelete"
         android:layout_width="100dp"
         android:layout_height="60dp"
-        android:onClick="deleteVehicle"
+        android:onClick="TakeFoto"
         android:text="Delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ac__vehicle_btnSave"
-        app:layout_constraintHorizontal_bias="0.636"
+        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.872" />
+        app:layout_constraintVertical_bias="0.873" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="225dp"
+        android:layout_height="140dp"
+        android:layout_marginBottom="16dp"
+        android:background="#3F51B5"
+        app:layout_constraintBottom_toTopOf="@+id/ac_vehicle_licensePlate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
