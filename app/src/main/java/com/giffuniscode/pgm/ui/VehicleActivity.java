@@ -203,25 +203,6 @@ public class VehicleActivity extends AppCompatActivity {
 //        }
 //    }
 
-    // Put the image file path into this method
-    public static String getFileToByte(String filePath){
-        Bitmap bmp = null;
-        ByteArrayOutputStream bos = null;
-        byte[] bt = null;
-        String encodeString = null;
-        try{
-            bmp = BitmapFactory.decodeFile(filePath);
-            bos = new ByteArrayOutputStream();
-            bmp.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-            bt = bos.toByteArray();
-            encodeString = Base64.encodeToString(bt, Base64.DEFAULT);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return encodeString;
-    }
-
     public static String getFileToByte(Bitmap bmp){
 
         ByteArrayOutputStream bos = null;
