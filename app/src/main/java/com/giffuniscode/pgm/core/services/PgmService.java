@@ -15,6 +15,8 @@ public class PgmService {
 //    private static final String URL_BASE = "http://192.168.1.85:5192/";
     private static final String URL_BASE = "http://192.168.0.102:5192/";
     private static final String VEHICLE_CONTROLLER = "vehicles/";
+    private static final String UPDATE_METHOD = "update/";
+
     private Context ctx;
 
     public PgmService(Context ctx) {
@@ -35,6 +37,18 @@ public class PgmService {
     }
 
     public void Update(Vehicle vehicle, Response.Listener<PgmResponse> listener, Response.ErrorListener requestErrorListener) {
+        GsonRequest<PgmResponse> gsonRequest = new GsonRequest(
+                URL_BASE + VEHICLE_CONTROLLER + UPDATE_METHOD,//URL
+                PgmResponse.class,//Clase a la que se convertira el JSON
+                null,//encabezado no necesitamos
+                listener,//listener
+                requestErrorListener//listener
+        );
+
+        VolleyClient.getInstance(this.ctx).addToRequestQueue(gsonRequest);
+    }
+
+    public void Create(Vehicle vehicle, Response.Listener<PgmResponse> listener, Response.ErrorListener requestErrorListener) {
 
     }
 

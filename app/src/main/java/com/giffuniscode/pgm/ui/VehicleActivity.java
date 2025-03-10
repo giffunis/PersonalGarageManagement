@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
@@ -28,7 +27,6 @@ import com.giffuniscode.pgm.core.services.PgmService;
 import com.giffuniscode.pgm.ui.dialogs.DatePickerFragment;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,6 +36,7 @@ public class VehicleActivity extends AppCompatActivity {
     public static final String VEHICLE = "vehicle";
     public static final String MESSAGE = "msg"; // Key for the return message
     public static final int ACTIVITY_RESULT_CODE = 1001; // Key to identify this activity on the call activity
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     private PgmService pgmService;
     private Vehicle vehicle;
     private Uri picturePath;
@@ -70,10 +69,20 @@ public class VehicleActivity extends AppCompatActivity {
         EditText firstRegistration = findViewById(R.id.ac_vehicle_date);
         String date = DateFormat.getDateInstance().format(vehicle.getFirstRegistration());
         firstRegistration.setText(date);
+
+        if(vehicle.getPhotoUrl() != null && !vehicle.getPhotoUrl().isEmpty()){
+            ImageView imageView = findViewById(R.id.ac_vehicle_picture);
+            imageView.setImageBitmap(getImageFromByte(vehicle.getPhotoUrl()));
+        }
+
+    }
+
+    private void returnToParentActivity(Intent intent) {
+        setResult(ACTIVITY_RESULT_CODE, intent);
+        finish();
     }
 
     public void saveVehicle(View view) {
-
 
         EditText licensePlate = findViewById(R.id.ac_vehicle_licensePlate);
         vehicle.setLicensePlate(licensePlate.getText().toString());
@@ -84,48 +93,67 @@ public class VehicleActivity extends AppCompatActivity {
         EditText model = findViewById(R.id.ac_vehicle_model);
         vehicle.setModel(model.getText().toString());
 
-        pgmService.Update(vehicle, successListener(), errorListener());
-//        EditText firstRegistration = findViewById(R.id.ac_vehicle_date);
-//        vehicle.setFirstRegistration(firstRegistration.getText().toString());
-//
-//        long rows = staff.getId() != 0 ? staffRepository.update(staff) : staffRepository.add(staff);
-//
-//        Intent intent = new Intent();
-//        if(staff.getId() != 0 && rows != 0){
-//            intent.putExtra(MESSAGE, "Actualizado");
-//        } else if(staff.getId() == 0 && rows != 0) {
-//            intent.putExtra(MESSAGE, "Guardado");
-//        } else{
-//            intent.putExtra(MESSAGE, "Error al guardar");
-//        }
-//
-//        returnToParentActivity(intent);
+        // vehicle.firstRegistrationDate ya está actualizado por el evento
+        // vehicle.photoUrl ya está actualizado por el evento
+
+        boolean updateOperation = vehicle.getId() != 0;
+
+        if(updateOperation) {
+            pgmService.Update(vehicle, successListener(), errorListener());
+        } else {
+            pgmService.Create(vehicle, successListener(), errorListener());
+        }
+
+        Intent intent = new Intent();
+        if(updateOperation && vehicle != null){
+            intent.putExtra(MESSAGE, "Actualizado");
+        } else if(!updateOperation && vehicle != null) {
+            intent.putExtra(MESSAGE, "Guardado");
+        } else{
+            intent.putExtra(MESSAGE, "Error al guardar");
+        }
+
+        returnToParentActivity(intent);
     }
 
     public void deleteVehicle(View view){
-
-        pgmService.DeleteVehicle(vehicle, successListener(), errorListener());
-//        Intent intent = new Intent();
-//
-//        if(staffRepository.delete(staff) != 0){
-//            intent.putExtra(MESSAGE, "Eliminado");
-//        } else {
-//            intent.putExtra(MESSAGE, "Error al borrar");
-//        }
-//
-//        returnToParentActivity(intent);
+        pgmService.DeleteVehicle(vehicle, successDeleteListener(), errorListener());
     }
 
     private Response.Listener<PgmService.PgmResponse> successListener() {
         return new Response.Listener<PgmService.PgmResponse>() {
             @Override
             public void onResponse(PgmService.PgmResponse response) {
+                Intent intent = new Intent();
                 try {
-//                    vehicles = new ArrayList<>();
-//                    vehicles.addAll(response.value);
-//                    adapter.updateRecycleView(vehicles);
+                    if(response.errors.size() == 0){
+                        intent.putExtra(MESSAGE, "Eliminado");
+                    } else {
+                        intent.putExtra(MESSAGE, "Error al borrar");
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    intent.putExtra(MESSAGE, "Error al borrar");
+                } finally {
+                    returnToParentActivity(intent);
+                }
+            }
+        };
+    }
+
+    private Response.Listener<PgmService.PgmResponse> successDeleteListener() {
+        return new Response.Listener<PgmService.PgmResponse>() {
+            @Override
+            public void onResponse(PgmService.PgmResponse response) {
+                try {
+                    if(response.errors.size() == 0){
+                        Intent intent = new Intent();
+                    }else{
+                        vehicle = null;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    vehicle = null;
                 }
             }
         };
@@ -149,8 +177,12 @@ public class VehicleActivity extends AppCompatActivity {
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONDAY, month);
                 calendar.set(Calendar.DAY_OF_MONTH, day);
-                String date = DateFormat.getDateInstance().format(new Date(calendar.getTimeInMillis()));
 
+                // Actualizamos el dto
+                vehicle.setFirstRegistration(calendar.getTime());
+
+                // Actualizamos la vista.
+                String date = DateFormat.getDateInstance().format(new Date(calendar.getTimeInMillis()));
                 EditText firstRegistration = findViewById(R.id.ac_vehicle_date);
                 firstRegistration.setText(date);
             }
@@ -171,6 +203,7 @@ public class VehicleActivity extends AppCompatActivity {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Start the activity with camera_intent, and request pic id
         activityResultLaunch.launch(intent);
+
     }
 
     private final ActivityResultLauncher<Intent> activityResultLaunch = registerForActivityResult(
@@ -180,10 +213,13 @@ public class VehicleActivity extends AppCompatActivity {
                     assert result.getData() != null;
                     Bundle extras = result.getData().getExtras();
                     Bitmap imageBitmap = (Bitmap) extras.get("data");
-                    ImageView imageView = findViewById(R.id.imageView);
-                    imageView.setImageBitmap(imageBitmap);
-                    vehicle.setPhotoUrl(getFileToByte(imageBitmap));
 
+                    // Actualizamos el dto
+                    vehicle.setPhotoUrl(getByteFromImage(imageBitmap));
+
+                    // Actualizamos la vista.
+                    ImageView imageView = findViewById(R.id.ac_vehicle_picture);
+                    imageView.setImageBitmap(imageBitmap);
                 }
                 else if (result.getResultCode() == RESULT_CANCELED) {
                     Toast.makeText(getApplicationContext(), "Captura cancelada", Toast.LENGTH_LONG).show();
@@ -193,17 +229,7 @@ public class VehicleActivity extends AppCompatActivity {
                 }
             });
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-//            Bundle extras = data.getExtras();
-//            Bitmap imageBitmap = (Bitmap) extras.get("data");
-//            imageView.setImageBitmap(imageBitmap);
-//        }
-//    }
-
-    public static String getFileToByte(Bitmap bmp){
+    public static String getByteFromImage(Bitmap bmp){
 
         ByteArrayOutputStream bos = null;
         byte[] bt = null;
@@ -218,5 +244,19 @@ public class VehicleActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return encodeString;
+    }
+
+    public static Bitmap getImageFromByte(String encodeString){
+
+        Bitmap decodedByte = null;
+
+        try{
+            byte[] decodedString = Base64.decode(encodeString, Base64.DEFAULT);
+            decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return decodedByte;
     }
 }
