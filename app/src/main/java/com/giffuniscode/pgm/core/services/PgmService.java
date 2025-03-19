@@ -2,6 +2,7 @@ package com.giffuniscode.pgm.core.services;
 
 import android.content.Context;
 
+import com.android.volley.Request;
 import com.giffuniscode.infraestructure.GsonRequest;
 import com.giffuniscode.infraestructure.VolleyClient;
 import com.giffuniscode.pgm.core.models.Vehicle;
@@ -37,12 +38,14 @@ public class PgmService {
     }
 
     public void Update(Vehicle vehicle, Response.Listener<PgmResponse> listener, Response.ErrorListener requestErrorListener) {
-        GsonRequest<PgmResponse> gsonRequest = new GsonRequest(
-                URL_BASE + VEHICLE_CONTROLLER + UPDATE_METHOD,//URL
-                PgmResponse.class,//Clase a la que se convertira el JSON
-                null,//encabezado no necesitamos
-                listener,//listener
-                requestErrorListener//listener
+
+        GsonRequest<Vehicle> gsonRequest = new GsonRequest<Vehicle>(
+                Request.Method.POST,
+                URL_BASE + VEHICLE_CONTROLLER + UPDATE_METHOD,
+                vehicle, /* PLEASE NOTICE THE DIFFERENCE HERE: use data of type Model instead of Model.class */
+                null, //encabezado, no necesitamos
+                listener,
+                requestErrorListener
         );
 
         VolleyClient.getInstance(this.ctx).addToRequestQueue(gsonRequest);
