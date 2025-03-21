@@ -71,4 +71,6 @@ public class Vehicle {
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
     }
+
+    public String toJsonString() { return new Gson().toJson(this);}
 }
