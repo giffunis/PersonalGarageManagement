@@ -116,17 +116,14 @@ public class GarageActivity extends AppCompatActivity {
         pgmService.GetVehicles(vehicleListRequestSuccessListener(), errorListener());
     }
 
-    private Response.Listener<PgmService.PgmResponse> vehicleListRequestSuccessListener() {
-        return new Response.Listener<PgmService.PgmResponse>() {
-            @Override
-            public void onResponse(PgmService.PgmResponse response) {
-                try {
-                    vehicles = new ArrayList<>();
-                    vehicles.addAll(response.value);
-                    adapter.updateRecycleView(vehicles);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+    private Response.Listener<PgmService.PgmArrayResponse> vehicleListRequestSuccessListener() {
+        return response -> {
+            try {
+                vehicles = new ArrayList<>();
+                vehicles.addAll(response.value);
+                adapter.updateRecycleView(vehicles);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         };
     }

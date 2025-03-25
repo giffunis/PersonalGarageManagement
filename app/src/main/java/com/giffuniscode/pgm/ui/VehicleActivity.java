@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -19,12 +18,12 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.android.volley.VolleyError;
 import com.android.volley.Response;
 import com.giffuniscode.giffuniscode.pgm.R;
 import com.giffuniscode.pgm.core.models.Vehicle;
 import com.giffuniscode.pgm.core.services.PgmService;
 import com.giffuniscode.pgm.ui.dialogs.DatePickerFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
@@ -45,6 +44,9 @@ public class VehicleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vehicle);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        FloatingActionButton fab = findViewById(R.id.ac_vehicle_fab_take_photo);
+        fab.setOnClickListener(this::takeFoto);
 
         pgmService = new PgmService(this);
 
@@ -97,31 +99,31 @@ public class VehicleActivity extends AppCompatActivity {
         boolean updateOperation = vehicle.getId() != 0;
 
         if(updateOperation) {
-            pgmService.updateVehicle(vehicle, successListener(), errorListener());
+            pgmService.updateVehicle(vehicle, successUpdateListener(), errorListener());
         } else {
-            pgmService.addVehicle(vehicle, successListener(), errorListener());
+            pgmService.addVehicle(vehicle, successUpdateListener(), errorListener());
         }
 
-        Intent intent = new Intent();
-        if(updateOperation && vehicle != null){
-            intent.putExtra(MESSAGE, "Actualizado");
-        } else if(!updateOperation && vehicle != null) {
-            intent.putExtra(MESSAGE, "Guardado");
-        } else{
-            intent.putExtra(MESSAGE, "Error al guardar");
-        }
-        returnToParentActivity(intent);
+//        Intent intent = new Intent();
+//        if(updateOperation && vehicle != null){
+//            intent.putExtra(MESSAGE, "Actualizado");
+//        } else if(!updateOperation && vehicle != null) {
+//            intent.putExtra(MESSAGE, "Guardado");
+//        } else{
+//            intent.putExtra(MESSAGE, "Error al guardar");
+//        }
+//        returnToParentActivity(intent);
     }
 
     public void deleteVehicle(View view){
         pgmService.DeleteVehicle(vehicle, successDeleteListener(), errorListener());
     }
 
-    private Response.Listener<PgmService.PgmResponse> successListener() {
+    private Response.Listener<PgmService.PgmBoolResponse> successDeleteListener() {
         return response -> {
             Intent intent = new Intent();
             try {
-                if(response.errors.isEmpty()){
+                if(response.errors.isEmpty() && response.value){
                     intent.putExtra(MESSAGE, "Eliminado");
                 } else {
                     intent.putExtra(MESSAGE, "Error al borrar");
@@ -135,17 +137,20 @@ public class VehicleActivity extends AppCompatActivity {
         };
     }
 
-    private Response.Listener<PgmService.PgmResponse> successDeleteListener() {
+    private Response.Listener<PgmService.PgmResponse> successUpdateListener() {
         return response -> {
+            Intent intent = new Intent();
             try {
                 if(response.errors.isEmpty()){
-                    Intent intent = new Intent();
-                }else{
-                    vehicle = null;
+                    intent.putExtra(MESSAGE, "Guardado");
+                } else {
+                    intent.putExtra(MESSAGE, "Error al guardar");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                vehicle = null;
+                intent.putExtra(MESSAGE, "Error al guardar");
+            } finally {
+                returnToParentActivity(intent);
             }
         };
     }
@@ -183,7 +188,7 @@ public class VehicleActivity extends AppCompatActivity {
         datePickerFragment.show(this.getSupportFragmentManager(), "datePicker");
     }
 
-    public void TakeFoto(View view)
+    public void takeFoto(View view)
     {
         // Create the camera_intent ACTION_IMAGE_CAPTURE it will open the camera for capture the image
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
