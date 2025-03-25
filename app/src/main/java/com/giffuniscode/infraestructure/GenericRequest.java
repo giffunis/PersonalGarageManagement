@@ -15,6 +15,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Created by laurentmeyer on 25/07/15.
+ */
 public class GenericRequest<T> extends JsonRequest<T> {
 
     private final Gson gson = new Gson();
@@ -75,6 +78,7 @@ public class GenericRequest<T> extends JsonRequest<T> {
      */
     public GenericRequest(int method, String url, Class<T> classtype, Object toBeSent,
                           Response.Listener<T> listener, Response.ErrorListener errorListener) {
+        // Modificado para que la api acepte el dto enviado. El formato de la fecha de matriculación es importante respetarlo.
         this(method, classtype, url, new GsonBuilder().setDateFormat("yyyy-MM-dd").create().toJson(toBeSent), listener,
                 errorListener, new HashMap<String, String>());
     }
