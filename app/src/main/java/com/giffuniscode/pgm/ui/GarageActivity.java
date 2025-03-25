@@ -21,6 +21,7 @@ import com.giffuniscode.pgm.core.models.Vehicle;
 import com.giffuniscode.pgm.core.services.PgmService;
 import com.giffuniscode.pgm.ui.adapters.RvVehiclesAdapter;
 import com.android.volley.Response;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,9 +61,14 @@ public class GarageActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
 
+        //Inicializamos el servicio que hace las peticiones al servidor.
         pgmService = new PgmService(this);
-        // Llamamos al servicio que nos devuelve los vehículos almacenados en el servidor.
-//        GetVehiclesFromServer();
+
+        FloatingActionButton fab = findViewById(R.id.ac_garage_fab_add_vehicle);
+        fab.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), VehicleActivity.class);
+            activityResultLaunch.launch(intent);
+        });
     }
 
     @Override public boolean onCreateOptionsMenu(Menu menu){

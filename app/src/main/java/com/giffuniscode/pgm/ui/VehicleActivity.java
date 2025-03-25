@@ -36,10 +36,8 @@ public class VehicleActivity extends AppCompatActivity {
     public static final String VEHICLE = "vehicle";
     public static final String MESSAGE = "msg"; // Key for the return message
     public static final int ACTIVITY_RESULT_CODE = 1001; // Key to identify this activity on the call activity
-    static final int REQUEST_IMAGE_CAPTURE = 1;
     private PgmService pgmService;
     private Vehicle vehicle;
-    private Uri picturePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,51 +118,40 @@ public class VehicleActivity extends AppCompatActivity {
     }
 
     private Response.Listener<PgmService.PgmResponse> successListener() {
-        return new Response.Listener<PgmService.PgmResponse>() {
-            @Override
-            public void onResponse(PgmService.PgmResponse response) {
-                Intent intent = new Intent();
-                try {
-                    if(response.errors.size() == 0){
-                        intent.putExtra(MESSAGE, "Eliminado");
-                    } else {
-                        intent.putExtra(MESSAGE, "Error al borrar");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+        return response -> {
+            Intent intent = new Intent();
+            try {
+                if(response.errors.isEmpty()){
+                    intent.putExtra(MESSAGE, "Eliminado");
+                } else {
                     intent.putExtra(MESSAGE, "Error al borrar");
-                } finally {
-                    returnToParentActivity(intent);
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+                intent.putExtra(MESSAGE, "Error al borrar");
+            } finally {
+                returnToParentActivity(intent);
             }
         };
     }
 
     private Response.Listener<PgmService.PgmResponse> successDeleteListener() {
-        return new Response.Listener<PgmService.PgmResponse>() {
-            @Override
-            public void onResponse(PgmService.PgmResponse response) {
-                try {
-                    if(response.errors.size() == 0){
-                        Intent intent = new Intent();
-                    }else{
-                        vehicle = null;
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+        return response -> {
+            try {
+                if(response.errors.isEmpty()){
+                    Intent intent = new Intent();
+                }else{
                     vehicle = null;
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+                vehicle = null;
             }
         };
     }
 
     private Response.ErrorListener errorListener() {
-        return new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        };
+        return error -> error.printStackTrace();
     }
 
     public void onClickFirstRegistration(View view) {
