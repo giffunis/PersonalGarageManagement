@@ -37,6 +37,7 @@ public class GarageActivity extends AppCompatActivity {
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == VehicleActivity.ACTIVITY_RESULT_CODE) {
+                    GetVehiclesFromServer();
                     assert result.getData() != null;
                     String message = result.getData().getStringExtra(VehicleActivity.MESSAGE);
                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();

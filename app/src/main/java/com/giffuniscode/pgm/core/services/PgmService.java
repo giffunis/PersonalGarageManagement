@@ -12,12 +12,10 @@ import java.util.List;
 
 public class PgmService {
 
-//    private static final String URL_BASE = "http://172.30.140.234:5192/";
-//    private static final String URL_BASE = "http://192.168.1.85:5192/";
-//    private static final String URL_BASE = "http://192.168.0.102:5192/";
     private static final String URL_BASE = "http://192.168.0.110:5192/";
     private static final String VEHICLE_CONTROLLER = "vehicles/";
     private static final String UPDATE_METHOD = "update/";
+    private static final String CREATE_METHOD = "add/";
 
     private Context ctx;
 
@@ -26,15 +24,6 @@ public class PgmService {
     }
 
     public void GetVehicles(Response.Listener<PgmResponse> listener, Response.ErrorListener errorListener) {
-
-//        GetRequest<PgmResponse> request = new GetRequest(
-//                URL_BASE + VEHICLE_CONTROLLER,//URL
-//                PgmResponse.class,//Clase a la que se convertira el JSON
-//                null,//encabezado no necesitamos
-//                listener,//listener
-//                requestErrorListener//listener
-//        );
-
         GenericRequest<PgmResponse> request = new GenericRequest<PgmResponse>(
                 URL_BASE + VEHICLE_CONTROLLER,
                 PgmResponse.class,
@@ -45,8 +34,7 @@ public class PgmService {
         VolleyClient.getInstance(this.ctx).addToRequestQueue(request);
     }
 
-    public void Update(Vehicle vehicle, Response.Listener<PgmResponse> listener, Response.ErrorListener requestErrorListener) {
-
+    public void updateVehicle(Vehicle vehicle, Response.Listener<PgmResponse> listener, Response.ErrorListener requestErrorListener) {
         GenericRequest<PgmResponse> request = new GenericRequest<PgmResponse>(
                 Request.Method.POST,
                 URL_BASE + VEHICLE_CONTROLLER + UPDATE_METHOD,
@@ -59,8 +47,17 @@ public class PgmService {
         VolleyClient.getInstance(this.ctx).addToRequestQueue(request);
     }
 
-    public void Create(Vehicle vehicle, Response.Listener<PgmResponse> listener, Response.ErrorListener requestErrorListener) {
+    public void addVehicle(Vehicle vehicle, Response.Listener<PgmResponse> listener, Response.ErrorListener requestErrorListener) {
+        GenericRequest<PgmResponse> request = new GenericRequest<PgmResponse>(
+                Request.Method.POST,
+                URL_BASE + VEHICLE_CONTROLLER + CREATE_METHOD,
+                PgmResponse.class,
+                vehicle,
+                listener,
+                requestErrorListener
+        );
 
+        VolleyClient.getInstance(this.ctx).addToRequestQueue(request);
     }
 
     public void DeleteVehicle(Vehicle vehicle, Response.Listener<PgmResponse> listener, Response.ErrorListener requestErrorListener) {

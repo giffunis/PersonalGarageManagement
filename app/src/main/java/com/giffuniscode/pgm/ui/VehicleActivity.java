@@ -99,9 +99,9 @@ public class VehicleActivity extends AppCompatActivity {
         boolean updateOperation = vehicle.getId() != 0;
 
         if(updateOperation) {
-            pgmService.Update(vehicle, successListener(), errorListener());
+            pgmService.updateVehicle(vehicle, successListener(), errorListener());
         } else {
-            pgmService.Create(vehicle, successListener(), errorListener());
+            pgmService.addVehicle(vehicle, successListener(), errorListener());
         }
 
         Intent intent = new Intent();
@@ -112,7 +112,6 @@ public class VehicleActivity extends AppCompatActivity {
         } else{
             intent.putExtra(MESSAGE, "Error al guardar");
         }
-
         returnToParentActivity(intent);
     }
 
