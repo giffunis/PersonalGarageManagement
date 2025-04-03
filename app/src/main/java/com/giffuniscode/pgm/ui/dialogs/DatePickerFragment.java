@@ -3,7 +3,6 @@ package com.giffuniscode.pgm.ui.dialogs;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;

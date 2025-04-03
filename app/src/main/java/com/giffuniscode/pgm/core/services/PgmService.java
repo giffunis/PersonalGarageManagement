@@ -1,19 +1,20 @@
 package com.giffuniscode.pgm.core.services;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+
+import androidx.preference.PreferenceManager;
 
 import com.android.volley.Request;
+import com.android.volley.Response;
 import com.giffuniscode.infraestructure.GenericRequest;
 import com.giffuniscode.infraestructure.VolleyClient;
 import com.giffuniscode.pgm.core.models.Vehicle;
-import com.android.volley.Response;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class PgmService {
 
-    private static final String URL_BASE = "http://192.168.0.110:5192/";
     private static final String VEHICLE_CONTROLLER = "vehicles/";
     private static final String UPDATE_METHOD = "update/";
     private static final String CREATE_METHOD = "add/";
@@ -25,9 +26,9 @@ public class PgmService {
         this.ctx = ctx;
     }
 
-    public void GetVehicles(Response.Listener<PgmArrayResponse> listener, Response.ErrorListener errorListener) {
+    public void getVehicles(Response.Listener<PgmArrayResponse> listener, Response.ErrorListener errorListener) {
         GenericRequest<PgmArrayResponse> request = new GenericRequest<PgmArrayResponse>(
-                URL_BASE + VEHICLE_CONTROLLER,
+                getUrlBase() + VEHICLE_CONTROLLER,
                 PgmArrayResponse.class,
                 listener,
                 errorListener
@@ -39,7 +40,7 @@ public class PgmService {
     public void updateVehicle(Vehicle vehicle, Response.Listener<PgmResponse> listener, Response.ErrorListener requestErrorListener) {
         GenericRequest<PgmResponse> request = new GenericRequest<PgmResponse>(
                 Request.Method.POST,
-                URL_BASE + VEHICLE_CONTROLLER + UPDATE_METHOD,
+                getUrlBase() + VEHICLE_CONTROLLER + UPDATE_METHOD,
                 PgmResponse.class,
                 vehicle,
                 listener,
@@ -52,7 +53,7 @@ public class PgmService {
     public void addVehicle(Vehicle vehicle, Response.Listener<PgmResponse> listener, Response.ErrorListener requestErrorListener) {
         GenericRequest<PgmResponse> request = new GenericRequest<PgmResponse>(
                 Request.Method.POST,
-                URL_BASE + VEHICLE_CONTROLLER + CREATE_METHOD,
+                getUrlBase() + VEHICLE_CONTROLLER + CREATE_METHOD,
                 PgmResponse.class,
                 vehicle,
                 listener,
@@ -62,16 +63,25 @@ public class PgmService {
         VolleyClient.getInstance(this.ctx).addToRequestQueue(request);
     }
 
-    public void DeleteVehicle(Vehicle vehicle, Response.Listener<PgmBoolResponse> listener, Response.ErrorListener errorListener) {
+    public void deleteVehicle(Vehicle vehicle, Response.Listener<PgmBoolResponse> listener, Response.ErrorListener errorListener) {
                 GenericRequest<PgmBoolResponse> request = new GenericRequest<PgmBoolResponse>(
                 Request.Method.POST,
-                URL_BASE + VEHICLE_CONTROLLER + DELETE_METHOD +"id=" + vehicle.getId().toString(),
+                getUrlBase() + VEHICLE_CONTROLLER + DELETE_METHOD +"id=" + vehicle.getId().toString(),
                 PgmBoolResponse.class,
                 null,
                 listener,
                 errorListener
         );
         VolleyClient.getInstance(this.ctx).addToRequestQueue(request);
+    }
+
+    private String getUrlBase() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(ctx);
+
+        String url = pref.getBoolean("https", false) ? "https://" : "http://";
+        url += pref.getString("hostIp", "");
+
+        return url;
     }
 
     public static class PgmResponse {

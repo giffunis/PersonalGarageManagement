@@ -116,7 +116,7 @@ public class VehicleActivity extends AppCompatActivity {
     }
 
     public void deleteVehicle(View view){
-        pgmService.DeleteVehicle(vehicle, successDeleteListener(), errorListener());
+        pgmService.deleteVehicle(vehicle, successDeleteListener(), errorListener());
     }
 
     private Response.Listener<PgmService.PgmBoolResponse> successDeleteListener() {

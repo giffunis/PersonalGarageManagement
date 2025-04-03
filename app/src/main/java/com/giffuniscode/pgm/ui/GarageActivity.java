@@ -15,13 +15,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.giffuniscode.giffuniscode.pgm.R;
 import com.giffuniscode.pgm.core.models.Vehicle;
 import com.giffuniscode.pgm.core.services.PgmService;
 import com.giffuniscode.pgm.ui.adapters.RvVehiclesAdapter;
-import com.android.volley.Response;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +81,7 @@ public class GarageActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings){
-            //TODO:: Llamar a la activity que almacena la configuración de la app
+            settingsLaunch(null);
             return true;
         }
         if (id == R.id.menu_refresh){
@@ -113,7 +114,13 @@ public class GarageActivity extends AppCompatActivity {
      * Obtiene los vehículos del servidor
      **/
     private void GetVehiclesFromServer(){
-        pgmService.GetVehicles(vehicleListRequestSuccessListener(), errorListener());
+        pgmService.getVehicles(vehicleListRequestSuccessListener(), errorListener());
+    }
+
+    private void settingsLaunch(View view)
+    {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     private Response.Listener<PgmService.PgmArrayResponse> vehicleListRequestSuccessListener() {
@@ -132,6 +139,9 @@ public class GarageActivity extends AppCompatActivity {
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                vehicles = new ArrayList<>();
+                adapter.updateRecycleView(vehicles);
+                Snackbar.make(requireViewById(R.id.main), "No se pudo descargar los datos", Snackbar.LENGTH_LONG).show();
                 error.printStackTrace();
             }
         };
