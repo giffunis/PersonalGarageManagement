@@ -7,6 +7,8 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -53,6 +56,37 @@ public class VehicleActivity extends AppCompatActivity {
         Intent intent = getIntent();
         vehicle = intent.getExtras() != null ? Vehicle.fromJson(intent.getStringExtra(VEHICLE)) : new Vehicle();
         populateView();
+    }
+
+    @Override public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_vehicle, menu);
+        return true; // Para indicar que está visible.
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.menu_sharring){
+            sharingLaunch(null);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void sharingLaunch(View v){
+
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.setType("text/plain");
+
+        // (Optional) Here you're setting the title of the content
+        sendIntent.putExtra(Intent.EXTRA_TITLE, "Datos del vehículo " + vehicle.getLicensePlate());
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Datos del vehículo " + vehicle.getLicensePlate());
+
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "Aquí tienes los datos de mi vehículo: " + pgmService.getShareLink(vehicle));
+        sendIntent.putExtra(Intent.EXTRA_EMAIL, "Aquí tienes los datos de mi vehículo: " + pgmService.getShareLink(vehicle));
+
+        // Show the Sharesheet
+        startActivity(Intent.createChooser(sendIntent, null));
     }
 
     private void populateView()
@@ -103,16 +137,6 @@ public class VehicleActivity extends AppCompatActivity {
         } else {
             pgmService.addVehicle(vehicle, successUpdateListener(), errorListener());
         }
-
-//        Intent intent = new Intent();
-//        if(updateOperation && vehicle != null){
-//            intent.putExtra(MESSAGE, "Actualizado");
-//        } else if(!updateOperation && vehicle != null) {
-//            intent.putExtra(MESSAGE, "Guardado");
-//        } else{
-//            intent.putExtra(MESSAGE, "Error al guardar");
-//        }
-//        returnToParentActivity(intent);
     }
 
     public void deleteVehicle(View view){

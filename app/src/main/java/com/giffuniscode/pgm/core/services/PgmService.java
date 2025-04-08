@@ -18,7 +18,8 @@ public class PgmService {
     private static final String VEHICLE_CONTROLLER = "vehicles/";
     private static final String UPDATE_METHOD = "update/";
     private static final String CREATE_METHOD = "add/";
-    private static final String DELETE_METHOD = "delete?";
+    private static final String DELETE_METHOD = "delete?id=";
+    private static final String BY_ID_METHOD = "ById?id=";
 
     private Context ctx;
 
@@ -66,13 +67,17 @@ public class PgmService {
     public void deleteVehicle(Vehicle vehicle, Response.Listener<PgmBoolResponse> listener, Response.ErrorListener errorListener) {
                 GenericRequest<PgmBoolResponse> request = new GenericRequest<PgmBoolResponse>(
                 Request.Method.POST,
-                getUrlBase() + VEHICLE_CONTROLLER + DELETE_METHOD +"id=" + vehicle.getId().toString(),
+                getUrlBase() + VEHICLE_CONTROLLER + DELETE_METHOD + vehicle.getId().toString(),
                 PgmBoolResponse.class,
                 null,
                 listener,
                 errorListener
         );
         VolleyClient.getInstance(this.ctx).addToRequestQueue(request);
+    }
+
+    public String getShareLink(Vehicle vehicle){
+        return getUrlBase() + VEHICLE_CONTROLLER + BY_ID_METHOD + vehicle.getId().toString();
     }
 
     private String getUrlBase() {
