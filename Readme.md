@@ -1,12 +1,12 @@
 # APP móvil para gestión de vehículos
 
 Trabajo Final  
-Proyecto asignatura *Dispositivos Móviles*.  
+Proyecto asignatura Dispositivos Móviles.  
 Máster Universitario en Ingeniería Informática - Universidad Pablo de Olavide  
 
 ## Descripción general
 
-Aplicación móvil nativa para Android API 28 que permite gestionar vehículos, de forma remota, gracias al uso de un servicio externo [Repositorio](https://github.com/giffunis/PGM.WebApi) desarrollado para que esta aplicación.  
+Aplicación móvil nativa para Android API 28 que permite gestionar vehículos, de forma remota, gracias al uso de un servicio externo [Repositorio](https://github.com/giffunis/PGM.WebApi) desarrollado para esta aplicación.  
 Esta app ha sido diseñada para cumplir con los requisitos del Trabajo Final de la asignatura de Dispositivos Móviles del Master Universitario en Ingeniería Informática de la Universidad Pablo de Olavide.
 
 ## Requisitos del trabajo final
