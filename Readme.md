@@ -9,6 +9,10 @@ Máster Universitario en Ingeniería Informática - Universidad Pablo de Olavide
 Aplicación móvil nativa para Android API 28 que permite gestionar vehículos, de forma remota, gracias al uso de un [servicio externo](https://github.com/giffunis/PGM.WebApi) desarrollado para esta aplicación.  
 Esta app ha sido diseñada para cumplir con los requisitos del Trabajo Final de la asignatura de Dispositivos Móviles del Master Universitario en Ingeniería Informática de la Universidad Pablo de Olavide.
 
+## Manual de usuario
+
+[Breve manual de usuario](docs/MANUAL.md)
+
 ## Requisitos del trabajo final
 
 **Requisitos obligatorios**
