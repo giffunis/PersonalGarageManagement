@@ -11,7 +11,7 @@ Esta app ha sido diseñada para cumplir con los requisitos del Trabajo Final de 
 
 ## Manual de usuario
 
-[Breve manual de usuario](docs/MANUAL.md)
+[Breve manual de usuario](docs/Manual.md)
 
 ## Requisitos del trabajo final
 

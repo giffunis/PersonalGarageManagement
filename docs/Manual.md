@@ -3,7 +3,7 @@
  ## Índice
  
 - [1. Acceso y Autenticación](###1.-Acceso-y-Autenticación).
-- [2. Pantalla principal](###2.-Pantalla-principal).
+- [2. Visualización de su garaje](##2.-Visualización-de-su-garaje).
 
  ### 1. Acceso y Autenticación
  
