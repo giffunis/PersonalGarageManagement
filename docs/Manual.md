@@ -2,9 +2,11 @@
  
  ## Índice
  
-- [1. Acceso y Autenticación](#1-acceso-y-autenticacion).
-- [2. Visualización de su garaje](#visualizacion-de-su-garaje).
-- [3. Visualización, creación, modificación y borrado de un vehículo]()
+- [1. Acceso y Autenticación](#1-acceso-y-autenticación).
+- [2. Configuración de la aplicación](#2-configuración-de-la-aplicación).
+- [3. Visualización de su garaje](#3-visualización-de-su-garaje).
+- [4. Visualización, creación, modificación y borrado de un vehículo](#4-visualización-creación-modificación-y-borrado-de-un-vehículo).
+- [5. Compartir datos del vehículo por email](#5-compartir-datos-de-un-vehículo-por-email).
 
  ### 1. Acceso y Autenticación
  
@@ -76,4 +78,17 @@ Si queremos sacar una foto a nuestro vehículo, pulsamos sobre el BAF correspond
 Para facilitar el registro de la fecha de matriculación, se ha usado un cuadro de diálogo (DatePicker).
 
 <img src="screenshots/Calendar.png" width="300" height="667" alt="Calendar"/>
+
+### 5. Compartir datos de un vehículo por email
+
+La aplicación ofrece la posibilidad de compartir toda la información del vehículo por email (ideal cuando se va a contratar un seguro o cuando se quiere vender el vehículo a un tercero). Para ello, se hace uso del Sharing entre apps. Para ello, basta con hacer clic en el icono de compartir del menú del vehículo:
+
+<img src="screenshots/share.png" width="300" height="667" alt="Shared icon">
+
+y seleccionar la aplicación de Gmail. A continuación, se creará un borrador con la siguiente información:
+
+- Asunto: *Datos del vehículo `matrícula`*
+- Cuerpo del mensaje: Enlace al servicio externo con los datos del vehículo (La página para visualizar esta información en el servicio externo no ha sido aún desarrollada. La información se puede consultar vía API REST).
+
+<img src="screenshots/email.jpg" width="300" height="667" alt="Draft email">
 
