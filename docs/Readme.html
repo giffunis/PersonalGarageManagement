@@ -201,6 +201,8 @@ Esta app ha sido diseñada para cumplir con los requisitos del Trabajo Final de 
 </tr>
 </tbody>
 </table>
+<h3 id="llamadas-del-servicio-externo---api-rest">Llamadas del servicio externo - API Rest</h3>
+<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/API.png" width="" height="" alt="API">
 <h2 id="manual-de-usuario">Manual de usuario</h2>
 <ul>
 <li><a href="#1-acceso-y-autenticaci%C3%B3n">1. Acceso y Autenticación</a>.</li>
@@ -217,19 +219,19 @@ Esta app ha sido diseñada para cumplir con los requisitos del Trabajo Final de 
 </ul>
 <p>*<strong>Nota</strong>: Este método de autenticación local, se ha escogido solo por motivos académicos. La autenticación en una aplicación real sería mediante JWT tokens y el almacenamiento en las SharePreferences.</p>
 <p>En el caso de que se introduzcan credenciales erroneas, aparecerá una notificación mediante snackbar describiendo el problema.</p>
- <img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/login.png" width="300" height="667" alt="Login Activity"/>
+ <img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/login.png" width="225" height="500" alt="Login Activity"/>
 <h3 id="2-configuración-de-la-aplicación">2. Configuración de la aplicación</h3>
 <p>En el menú de la pantalla principal, en la opción <code>Configuración</code>, accederemos a la pantalla de configuración, dónde se muestran las SharedPreferences almacenadas de la aplicación:</p>
-<p><img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/Menu.png" width="300" height="667" alt="Garage Activity"/> <img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/Settings.png" width="300" height="667" alt="Settings Activity"/></p>
+<p><img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/Menu.png" width="225" height="500" alt="Garage Activity"/> <img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/Settings.png" width="225" height="500" alt="Settings Activity"/></p>
 <p>Actualmente, aparecen:</p>
 <ul>
 <li>Activación de Https.</li>
 <li>La Url del <a href="https://github.com/giffunis/PGM.WebApi">servicio externo</a> desarrollado para esta aplicación.</li>
 </ul>
-<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/HostSettings.png" width="300" height="667" alt="Settings Activity"/>
+<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/HostSettings.png" width="225" height="500" alt="Settings Activity"/>
 <h3 id="3-visualización-de-su-garaje">3. Visualización de su garaje</h3>
 <p>En la pantalla principal se cargarán los vehículos que el usuario tenga registrados. El origen de dicha información es el <a href="https://github.com/giffunis/PGM.WebApi">servicio externo</a> desarrollado para esta aplicación y configurado en la sección anterior.</p>
-<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/Garage.png" width="300" height="667" alt="Garage Activity"/>
+<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/Garage.png" width="225" height="500" alt="Garage Activity"/>
 <p>En ella, vemos los siguientes elementos:</p>
 <ul>
 <li>Recicle View - Muestra el listado de vehículos registrados.</li>
@@ -243,7 +245,7 @@ Esta app ha sido diseñada para cumplir con los requisitos del Trabajo Final de 
 </ul>
 <h3 id="4-visualización-creación-modificación-y-borrado-de-un-vehículo">4. Visualización, creación, modificación y borrado de un vehículo</h3>
 <p>Para ver, editar o eliminar un vehículo, pulsamos sobre el mismo. Para añadir uno nuevo, pulsaremos sobre el BAF correspondiente. Esto nos abrirá la pantalla de detalle del propio vehículo (Vehicle Activity), vacía en el caso de la creación.</p>
-<p><img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/NewVehicle.png" width="300" height="667" alt="Vehicle Activity"/> <img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/Vehicle.png" width="300" height="667" alt="Vehicle Activity"/></p>
+<p><img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/NewVehicle.png" width="225" height="500" alt="Vehicle Activity"/> <img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/Vehicle.png" width="225" height="500" alt="Vehicle Activity"/></p>
 <p>En ella, vemos los siguientes datos:</p>
 <ul>
 <li>Imagen del vehículo.</li>
@@ -257,19 +259,19 @@ Esta app ha sido diseñada para cumplir con los requisitos del Trabajo Final de 
 <p>Como se aprecia en la imagen, existen dos botones: el botón de guardado, que almacena los cambios realizados, y el botón para eliminar. En ambos casos, aparecerá una notificación mediante Toast, con el resultado de la acción.</p>
 <h4 id="31-captura-del-vehículo">3.1 Captura del vehículo</h4>
 <p>Si queremos sacar una foto a nuestro vehículo, pulsamos sobre el BAF correspondiente y se abrirá la cámara:</p>
-<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/Camera.png" width="300" height="667" alt="Camera"/>
+<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/Camera.png" width="225" height="500" alt="Camera"/>
 <h4 id="32-fecha-de-matriculación">3.2 Fecha de matriculación</h4>
 <p>Para facilitar el registro de la fecha de matriculación, se ha usado un cuadro de diálogo (DatePicker).</p>
-<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/Calendar.png" width="300" height="667" alt="Calendar"/>
+<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/Calendar.png" width="225" height="500" alt="Calendar"/>
 <h3 id="5-compartir-datos-de-un-vehículo-por-email">5. Compartir datos de un vehículo por email</h3>
-<p>La aplicación ofrece la posibilidad de compartir toda la información del vehículo por email (ideal cuando se va a contratar un seguro o cuando se quiere vender el vehículo a un tercero). Para ello, se hace uso del Sharing entre apps. Basta con hacer clic en el icono de compartir del menú del vehículo:</p>
-<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/share.png" width="300" height="667" alt="Shared icon">
-<p>y seleccionar la aplicación de Gmail. A continuación, se creará un borrador con la siguiente información:</p>
+<p>La aplicación ofrece la posibilidad de compartir toda la información del vehículo por email (ideal cuando se va a contratar un seguro o cuando se quiere vender el vehículo a un tercero). Para ello, se hace uso del Sharing entre apps. Basta con hacer clic en el icono de compartir del menú del vehículo y seleccionar la aplicación de Gmail:</p>
+<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/share.png" width="225" height="500" alt="Shared icon">
+<p>A continuación, se creará un borrador con la siguiente información:</p>
 <ul>
 <li>Asunto: <em>Datos del vehículo <code>matrícula</code></em></li>
 <li>Cuerpo del mensaje: Enlace al servicio externo con los datos del vehículo (La página para visualizar esta información en el servicio externo no ha sido aún desarrollada. La información se puede consultar vía API REST).</li>
 </ul>
-<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/email.jpg" width="300" height="667" alt="Draft email">
+<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/email.jpg" width="225" height="500" alt="Draft email">
 
             
             
