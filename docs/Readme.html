@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Personal Garage Management Manual</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <!-- title: Personal Garage Management Manual -->
+<h1 id="app-móvil-para-gestión-de-vehículos">APP móvil para gestión de vehículos</h1>
+<p>Trabajo Final<br>
+Proyecto asignatura Dispositivos Móviles.<br>
+Máster Universitario en Ingeniería Informática - Universidad Pablo de Olavide</p>
+<h2 id="descripción-general">Descripción general</h2>
+<p>Aplicación móvil nativa para Android API 28 que permite gestionar vehículos, de forma remota, gracias al uso de un <a href="https://github.com/giffunis/PGM.WebApi">servicio externo</a> desarrollado para esta aplicación.<br>
+Esta app ha sido diseñada para cumplir con los requisitos del Trabajo Final de la asignatura de Dispositivos Móviles del Master Universitario en Ingeniería Informática de la Universidad Pablo de Olavide.</p>
+<h2 id="requisitos-del-trabajo-final">Requisitos del trabajo final</h2>
+<p><strong>Requisitos obligatorios</strong></p>
+<table>
+<thead>
+<tr>
+<th>Requisito</th>
+<th>Cumplimiento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Varias activities (mas de 3)</td>
+<td>Se han implementado 4 Activities: Login Activity, GarageActivity, SettingsActivity y VehicleActivity.</td>
+</tr>
+<tr>
+<td>Variedad de componentes en la vista (Elementos que hereden de View)</td>
+<td>Recycle View, Cuadros de diálogo, Fragments, etc.</td>
+</tr>
+<tr>
+<td>Al menos un método de Persistencia</td>
+<td>Se utilizan 2 métodos de persistencia: La base de datos SQLite y las Shared Preferences.</td>
+</tr>
+<tr>
+<td>Notificaciones</td>
+<td>Se utilizan dos tipos de notificaciones: Las Toast y las Snackbar.</td>
+</tr>
+<tr>
+<td>Acceso a Servicios Web y tratamiento de ficheros de intercambio de datos: XML / Json</td>
+<td>Se consumen dos servicios: Las imágenes de las marcas de los vehículos, <a href="https://github.com/giffunis/car-logos-dataset">Link</a> ; y un servicio externo <a href="https://github.com/giffunis/PGM.WebApi">Link</a> desarrollado para que esta aplicación. El tipo de fichero de intercambio y procesado es, Json. Se hace uso de librerías externas como <a href="https://github.com/google/volley">Volley</a> y <a href="https://github.com/google/gson">Gson</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Requisitos opcionales</strong></p>
+<table>
+<thead>
+<tr>
+<th>Requisito</th>
+<th>Cumplimiento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Menús</td>
+<td>Existen 2 menú de opciones en dos activities (GarageActivity y VehicleActivity)</td>
+</tr>
+<tr>
+<td>Sharing entre apps</td>
+<td>Se comparten, los datos del vehículo seleccionado en formato texto, a través de la App de Gmail u otra que acepte dicho formato</td>
+</tr>
+<tr>
+<td>Sensores</td>
+<td>Cámara (necesaria para sacar fotos al vehículo)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="manual-de-usuario">Manual de usuario</h2>
+<ul>
+<li><a href="#1-acceso-y-autenticaci%C3%B3n">1. Acceso y Autenticación</a>.</li>
+<li><a href="#2-configuraci%C3%B3n-de-la-aplicaci%C3%B3n">2. Configuración de la aplicación</a>.</li>
+<li><a href="#3-visualizaci%C3%B3n-de-su-garaje">3. Visualización de su garaje</a>.</li>
+<li><a href="#4-visualizaci%C3%B3n-creaci%C3%B3n-modificaci%C3%B3n-y-borrado-de-un-veh%C3%ADculo">4. Visualización, creación, modificación y borrado de un vehículo</a>.</li>
+<li><a href="#5-compartir-datos-de-un-veh%C3%ADculo-por-email">5. Compartir datos del vehículo por email</a>.</li>
+</ul>
+<h3 id="1-acceso-y-autenticación">1. Acceso y Autenticación</h3>
+<p>Para acceder a la aplicación, se nos solicitará las credenciales de acceso. En esta primera versión, se ha almacenado un usuario local en una tabla de SQlite:</p>
+<ul>
+<li>Username: usuario</li>
+<li>Password: 123456</li>
+</ul>
+<p>*<strong>Nota</strong>: Este método de autenticación local, se ha escogido solo por motivos académicos. La autenticación en una aplicación real sería mediante JWT tokens y el almacenamiento en las SharePreferences.</p>
+<p>En el caso de que se introduzcan credenciales erroneas, aparecerá una notificación mediante snackbar describiendo el problema.</p>
+ <img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/login.png" width="300" height="667" alt="Login Activity"/>
+<h3 id="2-configuración-de-la-aplicación">2. Configuración de la aplicación</h3>
+<p>En el menú de la pantalla principal, en la opción <code>Configuración</code>, accederemos a la pantalla de configuración, dónde se muestran las SharedPreferences almacenadas de la aplicación:</p>
+<p><img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/Menu.png" width="300" height="667" alt="Garage Activity"/> <img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/Settings.png" width="300" height="667" alt="Settings Activity"/></p>
+<p>Actualmente, aparecen:</p>
+<ul>
+<li>Activación de Https.</li>
+<li>La Url del <a href="https://github.com/giffunis/PGM.WebApi">servicio externo</a> desarrollado para esta aplicación.</li>
+</ul>
+<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/HostSettings.png" width="300" height="667" alt="Settings Activity"/>
+<h3 id="3-visualización-de-su-garaje">3. Visualización de su garaje</h3>
+<p>En la pantalla principal se cargarán los vehículos que el usuario tenga registrados. El origen de dicha información es el <a href="https://github.com/giffunis/PGM.WebApi">servicio externo</a> desarrollado para esta aplicación y configurado en la sección anterior.</p>
+<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/Garage.png" width="300" height="667" alt="Garage Activity"/>
+<p>En ella, vemos los siguientes elementos:</p>
+<ul>
+<li>Recicle View - Muestra el listado de vehículos registrados.</li>
+<li>BAF (Floatin Action Button) - Botón para añadir nuevos vehículos.</li>
+<li>Menu:
+<ul>
+<li>Refresh icon - Para actualizar el listado.</li>
+<li>Settings icon - Para modificar parámetros de ajuste de la apliación.</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-visualización-creación-modificación-y-borrado-de-un-vehículo">4. Visualización, creación, modificación y borrado de un vehículo</h3>
+<p>Para ver, editar o eliminar un vehículo, pulsamos sobre el mismo. Para añadir uno nuevo, pulsaremos sobre el BAF correspondiente. Esto nos abrirá la pantalla de detalle del propio vehículo (Vehicle Activity), vacía en el caso de la creación.</p>
+<p><img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/NewVehicle.png" width="300" height="667" alt="Vehicle Activity"/> <img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/Vehicle.png" width="300" height="667" alt="Vehicle Activity"/></p>
+<p>En ella, vemos los siguientes datos:</p>
+<ul>
+<li>Imagen del vehículo.</li>
+<li>BAF para sacar una nueva captura.</li>
+<li>Matrícula.</li>
+<li>Marca.</li>
+<li>Modelo.</li>
+<li>Año de matriculación.</li>
+</ul>
+<p>*<strong>Nota:</strong> No se han puesto encabezados en los campos porque se han configurado los textos de sugerencia (hint text).</p>
+<p>Como se aprecia en la imagen, existen dos botones: el botón de guardado, que almacena los cambios realizados, y el botón para eliminar. En ambos casos, aparecerá una notificación mediante Toast, con el resultado de la acción.</p>
+<h4 id="31-captura-del-vehículo">3.1 Captura del vehículo</h4>
+<p>Si queremos sacar una foto a nuestro vehículo, pulsamos sobre el BAF correspondiente y se abrirá la cámara:</p>
+<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/Camera.png" width="300" height="667" alt="Camera"/>
+<h4 id="32-fecha-de-matriculación">3.2 Fecha de matriculación</h4>
+<p>Para facilitar el registro de la fecha de matriculación, se ha usado un cuadro de diálogo (DatePicker).</p>
+<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/Calendar.png" width="300" height="667" alt="Calendar"/>
+<h3 id="5-compartir-datos-de-un-vehículo-por-email">5. Compartir datos de un vehículo por email</h3>
+<p>La aplicación ofrece la posibilidad de compartir toda la información del vehículo por email (ideal cuando se va a contratar un seguro o cuando se quiere vender el vehículo a un tercero). Para ello, se hace uso del Sharing entre apps. Basta con hacer clic en el icono de compartir del menú del vehículo:</p>
+<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/share.png" width="300" height="667" alt="Shared icon">
+<p>y seleccionar la aplicación de Gmail. A continuación, se creará un borrador con la siguiente información:</p>
+<ul>
+<li>Asunto: <em>Datos del vehículo <code>matrícula</code></em></li>
+<li>Cuerpo del mensaje: Enlace al servicio externo con los datos del vehículo (La página para visualizar esta información en el servicio externo no ha sido aún desarrollada. La información se puede consultar vía API REST).</li>
+</ul>
+<img src="file:////home/giffunis/Repositories/PersonalGarageManagement/docs/screenshots/email.jpg" width="300" height="667" alt="Draft email">
+
+            
+            
+        </body>
+        </html>
